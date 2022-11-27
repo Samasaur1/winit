@@ -93,6 +93,14 @@ pub(crate) fn set_ignore_mouse_events(window: &NSWindow, ignore: bool) {
     });
 }
 
+pub(crate) fn add_window_as_tab(window: &NSWindow, tab: &NSWindow, ordering: isize) {
+    let window = unsafe { MainThreadSafe(mem::transmute::<&NSWindow, &'static NSWindow>(window)) };
+    let tab = unsafe { MainThreadSafe(mem::transmute::<&NSWindow, &'static NSWindow>(tab)) };
+    Queue::main().exec_async(move || {
+        unsafe { window.addTabbedWindow(*tab, ordering); }
+    });
+}
+
 // `toggleFullScreen` is thread-safe, but our additional logic to account for
 // window styles isn't.
 pub(crate) fn toggle_full_screen_async(

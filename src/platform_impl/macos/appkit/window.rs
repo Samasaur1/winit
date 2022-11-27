@@ -207,6 +207,15 @@ extern_methods!(
 
         #[sel(sendEvent:)]
         pub unsafe fn sendEvent(&self, event: &NSEvent);
+    
+        #[sel(addTabbedWindow:ordered:)]
+        pub unsafe fn addTabbedWindow(&self, window: &NSWindow, ordered: isize);
+
+        #[sel(selectNextTab:)]
+        pub unsafe fn selectNextTab(&self, sender: Option<&Object>);
+
+        #[sel(selectPreviousTab:)]
+        pub unsafe fn selectPreviousTab(&self, sender: Option<&Object>);
     }
 );
 

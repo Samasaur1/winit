@@ -774,6 +774,11 @@ impl WinitWindow {
     }
 
     #[inline]
+    pub(crate) fn add_window_as_tab(&self, window: &WinitWindow, ordered: isize) {
+        util::add_window_as_tab(self, window, ordered);
+    }
+
+    #[inline]
     pub(crate) fn fullscreen(&self) -> Option<Fullscreen> {
         let shared_state_lock = self.lock_shared_state("fullscreen");
         shared_state_lock.fullscreen.clone()

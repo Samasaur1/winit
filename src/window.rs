@@ -851,6 +851,11 @@ impl Window {
         self.window.set_window_level(level)
     }
 
+    #[inline]
+    pub fn add_window_as_tab(&self, tab: &Window) {
+        self.window.add_window_as_tab(&tab.window, 1);
+    }
+
     /// Sets the window icon.
     ///
     /// On Windows and X11, this is typically the small icon in the top-left
