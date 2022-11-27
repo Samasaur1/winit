@@ -860,6 +860,10 @@ impl Window {
         unsafe { self.window.selectNextTab(None); };
     }
 
+    pub fn select_previous_tab(&self) {
+        unsafe { self.window.selectPreviousTab(None); };
+    }
+
     /// Sets the window icon.
     ///
     /// On Windows and X11, this is typically the small icon in the top-left
