@@ -9,6 +9,22 @@ use objc2::{extern_class, extern_methods, msg_send_id, ClassType};
 use super::{NSButton, NSColor, NSEvent, NSPasteboardType, NSResponder, NSScreen, NSView};
 
 extern_class!(
+    #[derive(Debug)]
+    pub(crate) struct NSWindowTabGroup;
+
+    unsafe impl ClassType for NSWindowTabGroup {
+        type Super = NSObject;
+    }
+);
+
+extern_methods!(
+    unsafe impl NSWindowTabGroup {
+        #[sel(setSelectedWindow:)]
+        pub fn setSelectedWindow(&self, window: &NSWindow);
+    }
+);
+
+extern_class!(
     /// Main-Thread-Only!
     #[derive(Debug, PartialEq, Eq, Hash)]
     pub(crate) struct NSWindow;
@@ -216,6 +232,14 @@ extern_methods!(
 
         #[sel(selectPreviousTab:)]
         pub unsafe fn selectPreviousTab(&self, sender: Option<&Object>);
+
+        pub fn tabbedWindows(&self) -> Option<Id<NSArray<Self, Shared>, Shared>> {
+            unsafe { msg_send_id![self, tabbedWindows] }
+        }
+
+        pub fn tabGroup(&self) -> Option<Id<NSWindowTabGroup, Shared>> {
+            unsafe { msg_send_id![self, tabGroup] }
+        }
     }
 );
 

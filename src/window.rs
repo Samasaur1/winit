@@ -864,6 +864,13 @@ impl Window {
         unsafe { self.window.selectPreviousTab(None); };
     }
 
+    pub fn select_nth_tab(&self, n: usize) {
+        let Some(tw) = self.window.tabbedWindows() else { return; };
+        let Some(dest_win) = tw.get(n) else { return; };
+        let Some(tg) = self.window.tabGroup() else { return; };
+        tg.setSelectedWindow(&dest_win);
+    }
+
     /// Sets the window icon.
     ///
     /// On Windows and X11, this is typically the small icon in the top-left
