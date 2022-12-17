@@ -871,6 +871,13 @@ impl Window {
         tg.setSelectedWindow(&dest_win);
     }
 
+    pub fn select_last_tab(&self) {
+        let Some(tw) = self.window.tabbedWindows() else { return; };
+        let Some(dest_win) = tw.last() else { return; };
+        let Some(tg) = self.window.tabGroup() else { return; };
+        tg.setSelectedWindow(&dest_win);
+    }
+
     /// Sets the window icon.
     ///
     /// On Windows and X11, this is typically the small icon in the top-left
